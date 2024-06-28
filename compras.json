@@ -1,0 +1,23 @@
+[
+  [
+    {
+      "imagen": "http://localhost:3000/images/pl1.jpg",
+      "nombre": "Platillo Loren",
+      "precio": "$15.000"
+    }
+  ],
+  [
+    {
+      "imagen": "http://localhost:3000/images/pl2.jpg",
+      "nombre": "Platillo Loren",
+      "precio": "$15.000"
+    }
+  ],
+  [
+    {
+      "imagen": "http://localhost:3000/images/pl2.jpg",
+      "nombre": "Platillo Loren",
+      "precio": "$15.000"
+    }
+  ]
+]
