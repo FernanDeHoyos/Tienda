@@ -3,7 +3,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -17,8 +17,9 @@ app.post('/guardar-compra', (req, res) => {
     console.log('Datos recibidos:', req.body);
 
     const compras = req.body;
+    const comprasFilePath = path.join(__dirname, 'compras.json');
 
-    fs.readFile('compras.json', (err, data) => {
+    fs.readFile(comprasFilePath, (err, data) => {
         if (err) {
             console.error('Error al leer el archivo de compras:', err);
             return res.status(500).send('Error al procesar el archivo de compras');
@@ -34,7 +35,7 @@ app.post('/guardar-compra', (req, res) => {
 
         comprasExistentes.push(compras);
 
-        fs.writeFile('compras.json', JSON.stringify(comprasExistentes, null, 2), (err) => {
+        fs.writeFile(comprasFilePath, JSON.stringify(comprasExistentes, null, 2), (err) => {
             if (err) {
                 console.error('Error al guardar la compra:', err);
                 return res.status(500).send('Error al guardar la compra');
@@ -46,7 +47,9 @@ app.post('/guardar-compra', (req, res) => {
 });
 
 app.get('/obtener-compras', (req, res) => {
-    fs.readFile('compras.json', 'utf8', (err, data) => {
+    const comprasFilePath = path.join(__dirname, 'compras.json');
+
+    fs.readFile(comprasFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error al leer el archivo de compras:', err);
             return res.status(500).send('Error al leer el archivo de compras');
@@ -61,7 +64,6 @@ app.get('/obtener-compras', (req, res) => {
         }
     });
 });
-
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
